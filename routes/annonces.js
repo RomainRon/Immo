@@ -29,13 +29,34 @@ router.get('/annonces/create', (req, res) => {
 });
 
 
-router.get('/update/:id', async (req, res) =>{
+router.get('/annonce/:id', async (req, res) =>{
     const id = await Annonce.findById(req.params.id)
         res.render('annonce', id)
 })
-router.post('/update/:id', async (req, res) =>{
+router.get('/update/:id', async (req, res) =>{
     const id = await Annonce.findById(req.params.id)
-    res.render('annonce', id)
+    res.render('update', id)
     
 })
-module.exports = router;
+router.post('/update/:id', async (req, res) =>{
+    try {
+    const {titre, prix, caracteristique} = req.body
+    await Annonce.findByIdAndUpdate(req.params.id, {titre, prix, caracteristique});
+       res.redirect('/')
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }   
+
+})
+router.get("/delete/:id", async (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    try {
+      const deleteOne = await Annonce.deleteOne({ _id: id });
+      const NewAnnonce = await Annonce.find({});
+      res.redirect("/");
+    } catch {
+      res.status(400);
+    }
+  });
+module.exports = router
