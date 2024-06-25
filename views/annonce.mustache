@@ -4,17 +4,13 @@
 </head>
 <body>
   <h1>Liste des annonces</h1>
-  {{# annonces}}
+ 
   <div>
   <h2>Titre: {{titre}}</h2>
     <h2>Caractéristique: {{caracteristique}}</h2>
     <h2>Prix: {{prix}}$</h2>
   </div>
-  <a href="/annonce/{{id}}">Voir plus de détails</a>
-   <a href="/update/{{id}}">Modifier cette annonce</a>
-{{/annonces}}
 
   <a href="/annonces/create">Créer un nouvelle annonces</a>
- 
 </body>
 </html>
