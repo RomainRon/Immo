@@ -3,12 +3,15 @@ const mustacheExpress = require('mustache-express');
 const path = require('path');
 const connectDatabase = require('./config/database');
 const annoncesRouter = require('./routes/annonces'); 
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware pour servir les fichiers statiques
 app.use(express.static('public'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Configuration de Mustache comme moteur de template
 app.engine('mustache', mustacheExpress());
